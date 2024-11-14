@@ -1,12 +1,13 @@
-package main.java.DAO;
+package tests.java.Dao;
 
+import main.java.DAO.IClienteDAO;
 import main.java.domain.Cliente;
 
-public class ClienteDao implements IClienteDAO {
+public class ClienteDAOMock implements IClienteDAO {
 
     @Override
     public Boolean cadastrar(Cliente cliente) {
-        return null;
+        return true;
     }
 
     @Override

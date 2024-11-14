@@ -28,7 +28,7 @@ public class ClienteService implements IClienteService {
 
     @Override
     public void excluir(Long cpf) {
-
+        clinteDao.excluir(cpf);
     }
 
     @Override

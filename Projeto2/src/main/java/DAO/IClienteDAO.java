@@ -8,4 +8,6 @@ public interface IClienteDAO {
 
 
     Cliente buscarPorCPF(Long cpf);
+
+    void excluir(Long cpf);
 }
