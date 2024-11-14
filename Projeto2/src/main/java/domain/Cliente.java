@@ -1,8 +1,12 @@
 package main.java.domain;
 
-public class Cliente {
+import main.java.anotacao.TipoChave;
+
+public class Cliente extends Persistente {
 
     private String nome;
+
+    @TipoChave("getCpf")
     private Long cpf;
     private Long tel;
     private String end;
@@ -18,6 +22,7 @@ public class Cliente {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 
     public Long getCpf() {
         return cpf;

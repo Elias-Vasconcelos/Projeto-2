@@ -1,7 +1,9 @@
 package tests.java;
 
+import main.java.DAO.ClienteDao;
 import main.java.DAO.IClienteDAO;
 import main.java.domain.Cliente;
+import main.java.exeptions.TipoChaveNaoEncontradaException;
 import main.java.services.ClienteService;
 import main.java.services.IClienteService;
 import org.junit.Assert;
@@ -16,12 +18,12 @@ public class ClienServiceTest {
     Cliente cliente = new Cliente();
 
    public ClienServiceTest(){
-       IClienteDAO dao = new ClienteDAOMock();
+       IClienteDAO dao = new ClienteDao();
       clienteService  = new ClienteService(dao);
    }
 
    @Before
-   public void init(){
+   public void init() throws TipoChaveNaoEncontradaException {
        cliente.setCpf(11223456L);
        cliente.setNome("elias");
        cliente.setCidade("sao paulo");
@@ -29,7 +31,6 @@ public class ClienServiceTest {
        cliente.setEstado("sao paulo");
        cliente.setNumero(11223456);
        cliente.setTel(11223456L);
-
        clienteService.cadastrar(cliente);
    }
 
@@ -42,10 +43,10 @@ public class ClienServiceTest {
     }
 
     @Test
-    public void cadastrarClient(){
+    public void cadastrarClient()throws TipoChaveNaoEncontradaException {
 
-        Boolean clientcadastrado =  clienteService.cadastrar(cliente);
-        Assert.assertEquals(true, clientcadastrado);
+        Cliente clientcadastrado =  clienteService.buscarPorCPF(cliente.getCpf());
+        Assert.assertNotNull(clientcadastrado);
 
     }
 
@@ -55,5 +56,15 @@ public class ClienServiceTest {
         clienteService.excluir(cliente.getCpf());
 
     }
+
+
+    @Test
+    public void alterarClient()throws TipoChaveNaoEncontradaException {
+        cliente.setNome("Elias Ferreira");
+        clienteService.alterar(cliente);
+
+        Assert.assertEquals("Elias Ferreira", cliente.getNome());
+    }
+
 
 }

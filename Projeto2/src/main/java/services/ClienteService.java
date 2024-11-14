@@ -3,36 +3,21 @@ package main.java.services;
 import main.java.DAO.ClienteDao;
 import main.java.DAO.IClienteDAO;
 import main.java.domain.Cliente;
+import main.java.services.Generic.GenericService;
 
-public class ClienteService implements IClienteService {
+public class ClienteService extends GenericService<Cliente, Long> implements IClienteService {
 
+    //private IClienteDAO clienteDAO;
 
-    IClienteDAO clinteDao;
-
-    public ClienteService(IClienteDAO dao){
-         clinteDao = dao ;
-    }
-
-
-    @Override
-    public Boolean cadastrar(Cliente cliente) {
-        clinteDao.cadastrar(cliente);
-        return true;
+    public ClienteService(IClienteDAO clienteDAO) {
+        super(clienteDAO);
+        //this.clienteDAO = clienteDAO;
     }
 
     @Override
     public Cliente buscarPorCPF(Long cpf) {
-        Cliente clienteEncontrado = clinteDao.buscarPorCPF(cpf);
-        return clienteEncontrado;
+        return this.dao.consultar(cpf);
     }
 
-    @Override
-    public void excluir(Long cpf) {
-        clinteDao.excluir(cpf);
-    }
 
-    @Override
-    public void alterar(Cliente cliente) {
-
-    }
 }
